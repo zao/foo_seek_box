@@ -114,3 +114,4 @@ GUID const SeekMenu::s_guid = { 0x40e59e3, 0x442f, 0x4f41, { 0xb1, 0x8f, 0x8c, 0
 static mainmenu_commands_factory_t<SeekMenu> g_asdf;
 
 DECLARE_COMPONENT_VERSION("Seek box", "0.0.3", "zao")
+VALIDATE_COMPONENT_FILENAME("foo_seek_box.dll")
