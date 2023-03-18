@@ -3,6 +3,8 @@
 #include <atlwin.h>
 #include <atlapp.h>
 #include <atlctrls.h>
+#include <atlcrack.h>
+#include <helpers/DarkMode.h>
 #include "resource.h"
 #include <boost/spirit/home/qi.hpp>
 #include <vector>
@@ -15,8 +17,15 @@ struct SeekBox : CSimpleDialog<IDD_SEEKBOX>
     }
 
     BEGIN_MSG_MAP(SeekBox)
+    MESSAGE_HANDLER(WM_INITDIALOG, onInitDialog)
     MESSAGE_HANDLER(WM_COMMAND, onCommand);
     END_MSG_MAP()
+
+    LRESULT onInitDialog(UINT msg, WPARAM wparam, LPARAM lparam, BOOL& handled)
+    {
+        dark_hooks.AddDialogWithControls(*this);
+        return TRUE;
+    }
 
     LRESULT onCommand(UINT msg, WPARAM wparam, LPARAM lparam, BOOL& handled)
     {
@@ -73,6 +82,9 @@ struct SeekBox : CSimpleDialog<IDD_SEEKBOX>
 
     int h, m, s;
     bool valid;
+
+  private:
+    fb2k::CDarkModeHooks dark_hooks;
 };
 
 struct SeekBoxCB : main_thread_callback
